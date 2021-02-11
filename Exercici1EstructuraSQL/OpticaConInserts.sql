@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `optica`.`marca` (
   `Marca_ID` INT NOT NULL AUTO_INCREMENT,
   `Nombre_Marca` VARCHAR(30) NOT NULL,
   `Proveidor_Proveidor_ID` INT NOT NULL,
-  PRIMARY KEY (`Marca_ID`, `Nombre_Marca`),
+  PRIMARY KEY (`Marca_ID`, `Nombre_Marca`, `Proveidor_Proveidor_ID`),
   UNIQUE INDEX `Marca_ID_UNIQUE` (`Marca_ID` ASC) VISIBLE,
   INDEX (`Proveidor_Proveidor_ID` ASC) VISIBLE,
   CONSTRAINT `fk_Marcas_Proveidor1`
@@ -98,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `optica`.`ulleres` (
   `Preu` INT NOT NULL,
   `Marcas_Marcas_ID` INT NOT NULL,
   `Marcas_Nombre_Marcas` VARCHAR(30) NOT NULL,
-  PRIMARY KEY (`Ulleres_id`),
+  PRIMARY KEY (`Ulleres_id`, `Marcas_Marcas_ID`, `Marcas_Nombre_Marcas`),
   INDEX `fk_Glasses_Marcas1_idx` (`Marcas_Marcas_ID` ASC, `Marcas_Nombre_Marcas` ASC) INVISIBLE,
   INDEX `fk_Glasses_Marcas2_idx` (`Marcas_Nombre_Marcas` ASC) VISIBLE,
   CONSTRAINT `fk_Glasses_Marcas1`
@@ -122,7 +122,7 @@ CREATE TABLE IF NOT EXISTS `optica`.`gafasvendidas` (
   `Client_Client_id` INT NOT NULL,
   `Empleats Optica_Empleats Optica_id` INT NOT NULL,
   `Ulleres_Ulleres_id` INT NOT NULL,
-  PRIMARY KEY (`GafasVendidas_Id`),
+  PRIMARY KEY (`GafasVendidas_Id`, `Client_Client_id`, `Empleats Optica_Empleats Optica_id`, `Ulleres_Ulleres_id`),
   UNIQUE INDEX `GafasVendidas_Id_UNIQUE` (`GafasVendidas_Id` ASC) VISIBLE,
   INDEX (`Client_Client_id` ASC) INVISIBLE,
   INDEX (`Empleats Optica_Empleats Optica_id` ASC) VISIBLE,
@@ -220,5 +220,4 @@ INSERT INTO `optica`.`gafasvendidas` (`GafasVendidas_Id`, `Fecha`, `Client_Clien
 INSERT INTO `optica`.`gafasvendidas` (`GafasVendidas_Id`, `Fecha`, `Client_Client_id`, `Empleats Optica_Empleats Optica_id`, `Ulleres_Ulleres_id`) VALUES (DEFAULT, '2021-02-02', 3, 3, 3);
 
 COMMIT;
-
 
