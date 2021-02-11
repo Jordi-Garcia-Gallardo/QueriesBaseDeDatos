@@ -1,0 +1,6 @@
+SELECT de.nombre, pe.apellido1, pe.apellido2, pe.nombre FROM persona pe LEFT JOIN profesor pr ON pe.id = pr.id_profesor LEFT JOIN departamento de ON pr.id_departamento = de.id WHERE tipo IN ("profesor") ORDER BY de.nombre ASC, pe.apellido1 ASC, pe.apellido2 ASC, pe.nombre ASC
+SELECT pe.apellido1, pe.apellido2, pe.nombre FROM persona pe LEFT JOIN profesor pr ON pe.id = pr.id_profesor WHERE tipo IN ("profesor") AND pr.id_departamento IS NULL ORDER BY pe.apellido1 ASC, pe.apellido2 ASC, pe.nombre ASC
+SELECT * FROM departamento de LEFT JOIN profesor pr ON pr.id_departamento = de.id WHERE pr.id_profesor IS NULL 
+SELECT pe.apellido1, pe.apellido2, pe.nombre, pr.id_profesor FROM persona pe LEFT JOIN profesor pr ON pe.id = pr.id_profesor LEFT JOIN asignatura asi ON pr.id_profesor = asi.id_profesor WHERE pe.tipo IN ("profesor") AND pr.id_departamento IS NOT NULL ORDER BY pe.apellido1 ASC, pe.apellido2 ASC, pe.nombre ASC
+SELECT * FROM asignatura WHERE id_profesor IS NULL
+SELECT DISTINCT de.nombre FROM departamento de LEFT JOIN profesor pr ON de.id = pr.id_departamento LEFT JOIN asignatura asi ON pr.id_profesor = asi.id_profesor LEFT JOIN curso_escolar cu ON cu.id = asi.curso WHERE id_grado IS NULL
