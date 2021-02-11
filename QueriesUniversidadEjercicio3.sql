@@ -5,7 +5,7 @@ SELECT d.nombre, count(*) AS "numero_profesores" FROM departamento d LEFT JOIN p
 SELECT g.nombre, count(*) AS "numero_asignaturas" FROM grado g LEFT JOIN asignatura a ON g.id = a.id_grado WHERE a.id IS NOT NULL GROUP BY g.nombre having count(*)>=1 UNION SELECT g.nombre, 0 AS "numero_asignaturas" FROM grado g LEFT JOIN asignatura a ON g.id = a.id_grado WHERE a.id IS NULL ORDER BY numero_asignaturas DESC
 SELECT g.nombre, count(*) AS "numero_asignaturas" FROM grado g LEFT JOIN asignatura a ON g.id = a.id_grado GROUP BY g.nombre having count(*)>40 
 
-
-
+SELECT distinct c.anyo_inicio, count(*) AS "numero_alumnes" FROM curso_escolar c LEFT JOIN alumno_se_matricula_asignatura am ON c.id = am.id_curso_escolar WHERE am.id_alumno IS NOT NULL GROUP BY c.id, c.anyo_inicio, am.id_alumno having count(*)>=1  UNION SELECT distinct c.anyo_inicio, 0 "numero_alumnes" FROM curso_escolar c LEFT JOIN alumno_se_matricula_asignatura am ON c.id = am.id_curso_escolar WHERE am.id_alumno IS NULL 
+SELECT pr.id_profesor, pe.nombre, pe.apellido1,pe.apellido2, count(*) AS "numero_asignaturas"  FROM persona pe LEFT JOIN profesor pr ON pe.id = pr.id_profesor LEFT JOIN asignatura a ON pr.id_profesor=a.id_profesor WHERE pe.tipo IN ('profesor') AND a.nombre IS NOT NULL GROUP BY pr.id_profesor, pe.nombre, pe.apellido1,pe.apellido2 having count(*)>=1 UNION SELECT pr.id_profesor, pe.nombre, pe.apellido1,pe.apellido2, 0 AS "numero_asignaturas"  FROM persona pe LEFT JOIN profesor pr ON pe.id = pr.id_profesor LEFT JOIN asignatura a ON pr.id_profesor=a.id_profesor WHERE pe.tipo IN ('profesor') AND a.nombre IS NULL ORDER BY numero_asignaturas DESC
 SELECT * FROM persona WHERE tipo IN ("alumno") ORDER BY fecha_nacimiento ASC LIMIT 1
 SELECT * FROM persona per LEFT JOIN profesor pr ON per.id = pr.id_profesor LEFT JOIN asignatura asi ON pr.id_profesor = asi.id_profesor WHERE per.tipo IN ("profesor") AND asi.nombre IS NULL AND pr.id_departamento IS NOT NULL
